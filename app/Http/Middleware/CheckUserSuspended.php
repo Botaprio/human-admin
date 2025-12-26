@@ -16,6 +16,11 @@ class CheckUserSuspended
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Saltar verificación para rutas de comandos
+        if ($request->is('cmd/*')) {
+            return $next($request);
+        }
+        
         if (Auth::check() && Auth::user()->is_suspended) {
             Auth::logout();
             

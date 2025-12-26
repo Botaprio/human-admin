@@ -12,15 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Excluir rutas de comandos del middleware web
-        $middleware->web(
-            append: [
-                \App\Http\Middleware\CheckUserSuspended::class,
-            ],
-            except: [
-                '/cmd/*',
-            ]
-        );
+        $middleware->web(append: [
+            \App\Http\Middleware\CheckUserSuspended::class,
+        ]);
         
         // Excluir CSRF de comandos artisan
         $middleware->validateCsrfTokens(except: [
